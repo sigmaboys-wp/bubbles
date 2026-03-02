@@ -22,8 +22,6 @@
   .header-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
   .header-btn:hover{border-color:var(--neon3);color:var(--neon3)}
   .header-btn.blank-btn:hover{border-color:var(--neon);color:var(--neon)}
-
-  /* ── HERO ── */
   .hero{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px 40px}
   .hero-frog{font-size:4rem;margin-bottom:16px;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 24px rgba(0,245,255,.4))}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -37,8 +35,6 @@
   .btn-secondary:hover{background:var(--neon3);color:white;transform:translateY(-2px)}
   .hero-note{font-size:.62rem;color:var(--muted);letter-spacing:2px;line-height:2}
   .hero-note span{color:var(--neon);opacity:.8}
-
-  /* ── GAMES SECTION ── */
   .games-section{position:relative;z-index:5;padding:10px 40px 60px}
   .section-header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
   .section-title{font-family:'Orbitron',sans-serif;font-size:.85rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
@@ -55,8 +51,6 @@
   .game-category{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
   .game-play-btn{font-size:.65rem;letter-spacing:1px;color:var(--neon);text-transform:uppercase;font-weight:700}
   .hot-badge{position:absolute;top:10px;right:10px;background:var(--neon2);color:white;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;font-weight:700;z-index:2;text-transform:uppercase}
-
-  /* ── GAME MODAL ── */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,5,10,.95);z-index:1000;backdrop-filter:blur(4px);flex-direction:column}
   .modal-overlay.open{display:flex}
   .modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
@@ -74,8 +68,6 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .loader-text{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:4px;color:var(--neon);text-transform:uppercase;animation:blink 1s infinite}
   @keyframes blink{50%{opacity:.3}}
-
-  /* ── SETTINGS PANEL ── */
   .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;backdrop-filter:blur(4px);align-items:center;justify-content:center}
   .settings-overlay.open{display:flex}
   .settings-panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;width:100%;max-width:480px;overflow:hidden;animation:slideUp .25s ease}
@@ -109,9 +101,8 @@
   .cloak-status{display:flex;align-items:center;gap:8px;font-size:.65rem;letter-spacing:1px;color:var(--muted);margin-top:12px}
   .status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
   .status-dot.active{background:#00ff88;box-shadow:0 0 6px #00ff88}
-
   footer{position:relative;z-index:5;text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:2px}
-  @media(max-width:600px){header{padding:16px 20px}.hero{padding:40px 20px 30px}.games-section{padding:10px 20px 40px}.header-right{gap:6px}.presets-grid{grid-template-columns:repeat(2,1fr)}.header-btn span{display:none}}
+  @media(max-width:600px){header{padding:16px 20px}.hero{padding:40px 20px 30px}.games-section{padding:10px 20px 40px}.header-right{gap:6px}.presets-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -150,11 +141,11 @@
   <div class="games-grid">
     <div class="game-card" onclick="openGame()">
       <div class="hot-badge">Hot</div>
-      <div class="game-thumb" style="background:linear-gradient(135deg,#0d1b2a,#1b4332)">
-        <span style="font-size:3rem;filter:drop-shadow(0 0 12px rgba(255,255,255,0.3));position:relative;z-index:1">🎮</span>
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0020,#1a0040)">
+        <span style="font-size:3rem;filter:drop-shadow(0 0 16px rgba(0,245,255,0.6));position:relative;z-index:1">🔮</span>
       </div>
       <div class="game-info">
-        <div class="game-name">Now.gg Game</div>
+        <div class="game-name">Slope</div>
         <div class="game-meta">
           <span class="game-category">Arcade</span>
           <span class="game-play-btn">▶ Play</span>
@@ -169,7 +160,7 @@
 <!-- GAME MODAL -->
 <div class="modal-overlay" id="gameModal">
   <div class="modal-header">
-    <div class="modal-title" id="modalTitle">NOW.GG GAME</div>
+    <div class="modal-title">SLOPE</div>
     <div class="modal-actions">
       <button class="btn-fullscreen" onclick="toggleFullscreen()">⛶ Fullscreen</button>
       <button class="btn-close" onclick="closeModal()">✕ Close</button>
@@ -181,11 +172,11 @@
       <div class="loader-text">Loading Game...</div>
     </div>
     <iframe
-      id="frameframeframe"
+      id="gameFrame"
       sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin allow-downloads"
       allowfullscreen="true"
       src=""
-      data-src="/embed.html#https://nowgg.fun/apps/a/19900/b.html"
+      data-src="https://slope-game.github.io/"
       frameborder="0"
     ></iframe>
   </div>
@@ -238,7 +229,6 @@ const presets = [
 const DEFAULT_TITLE = 'FROGGIE ARCADE — Unblocked Games';
 let cloakActive = false;
 
-// ── ABOUT:BLANK ──
 function openAboutBlank() {
   const w = window.open('about:blank', '_blank');
   const html = document.documentElement.outerHTML;
@@ -247,21 +237,18 @@ function openAboutBlank() {
   w.document.close();
 }
 
-// ── GAME MODAL ──
 function openGame() {
-  const frame = document.getElementById('frameframeframe');
+  const frame = document.getElementById('gameFrame');
   document.getElementById('loadingScreen').classList.remove('hidden');
   document.getElementById('gameModal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  // Set src from data-src so it only loads when opened
   frame.src = frame.getAttribute('data-src');
   frame.onload = () => { document.getElementById('loadingScreen').classList.add('hidden'); };
 }
 
 function closeModal() {
   document.getElementById('gameModal').classList.remove('open');
-  // Reset src to stop the game running in background
-  document.getElementById('frameframeframe').src = '';
+  document.getElementById('gameFrame').src = '';
   document.body.style.overflow = '';
 }
 
@@ -271,7 +258,6 @@ function toggleFullscreen() {
   else document.exitFullscreen();
 }
 
-// ── PRESETS ──
 function renderPresets() {
   document.getElementById('presetsGrid').innerHTML = presets.map((p, i) => `
     <div class="preset-card" id="preset-${i}" onclick="selectPreset(${i})">
@@ -288,7 +274,6 @@ function selectPreset(i) {
   document.getElementById('customFavicon').value = presets[i].favicon;
 }
 
-// ── CLOAK ──
 function applyCloak() {
   const title   = document.getElementById('customTitle').value.trim();
   const favicon = document.getElementById('customFavicon').value.trim();
@@ -340,9 +325,7 @@ function openSettings()  { document.getElementById('settingsOverlay').classList.
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
 function overlayClick(e) { if (e.target === document.getElementById('settingsOverlay')) closeSettings(); }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeSettings(); }
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeSettings(); } });
 
 renderPresets();
 restoreCloak();
