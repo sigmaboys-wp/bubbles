@@ -9,45 +9,37 @@
 <style>
   :root{--bg:#0a0a0f;--surface:#12121a;--card:#1a1a28;--border:#2a2a45;--neon:#00f5ff;--neon2:#ff006e;--neon3:#7b00ff;--text:#e0e0ff;--muted:#6060a0}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden}
+  body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column}
   body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
   header{position:sticky;top:0;z-index:10;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(10,10,15,.95);backdrop-filter:blur(10px)}
   .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.6rem;letter-spacing:3px;background:linear-gradient(90deg,var(--neon),var(--neon3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .logo span{-webkit-text-fill-color:var(--neon2)}
   .tagline{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
-  .header-right{display:flex;align-items:center;gap:16px}
+  .header-right{display:flex;align-items:center;gap:12px}
   .live-badge{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--neon);letter-spacing:2px;text-transform:uppercase}
   .live-dot{width:8px;height:8px;background:var(--neon);border-radius:50%;animation:pulse 1.5s infinite;box-shadow:0 0 8px var(--neon)}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-  .settings-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px}
-  .settings-btn:hover{border-color:var(--neon3);color:var(--neon3)}
-  .controls{position:relative;z-index:5;padding:30px 40px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-  .search-wrap{position:relative;flex:1;min-width:220px;max-width:400px}
-  .search-wrap input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 16px 10px 42px;color:var(--text);font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:1px;outline:none;transition:border-color .2s,box-shadow .2s}
-  .search-wrap input:focus{border-color:var(--neon);box-shadow:0 0 12px rgba(0,245,255,.15)}
-  .search-wrap input::placeholder{color:var(--muted)}
-  .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
-  .filters{display:flex;gap:8px;flex-wrap:wrap}
-  .filter-btn{padding:8px 16px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s}
-  .filter-btn:hover{border-color:var(--neon);color:var(--neon)}
-  .filter-btn.active{background:var(--neon);border-color:var(--neon);color:var(--bg);box-shadow:0 0 16px rgba(0,245,255,.3)}
-  .games-section{position:relative;z-index:5;padding:10px 40px 60px}
-  .section-header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
-  .section-title{font-family:'Orbitron',sans-serif;font-size:.85rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
-  .section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
-  .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
-  .game-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;animation:fadeIn .4s ease both;position:relative}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .game-card:hover{transform:translateY(-4px);border-color:var(--neon);box-shadow:0 8px 32px rgba(0,245,255,.12)}
-  .game-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
-  .game-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,var(--card))}
-  .game-info{padding:14px}
-  .game-name{font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .game-meta{display:flex;align-items:center;justify-content:space-between}
-  .game-category{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-  .game-play-btn{font-size:.65rem;letter-spacing:1px;color:var(--neon);text-transform:uppercase;font-weight:700}
-  .hot-badge{position:absolute;top:10px;right:10px;background:var(--neon2);color:white;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;font-weight:700;z-index:2;text-transform:uppercase}
-  .new-badge{position:absolute;top:10px;right:10px;background:var(--neon3);color:white;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;font-weight:700;z-index:2;text-transform:uppercase}
+  .header-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .header-btn:hover{border-color:var(--neon3);color:var(--neon3)}
+  .header-btn.blank-btn{border-color:var(--border);color:var(--muted)}
+  .header-btn.blank-btn:hover{border-color:var(--neon);color:var(--neon)}
+
+  /* ── HERO ── */
+  .hero{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px}
+  .hero-frog{font-size:5rem;margin-bottom:24px;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 24px rgba(0,245,255,.4))}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .hero-title{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,4rem);letter-spacing:4px;background:linear-gradient(90deg,var(--neon),var(--neon3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+  .hero-title span{-webkit-text-fill-color:var(--neon2)}
+  .hero-sub{font-size:.8rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn-primary{background:var(--neon);border:none;color:var(--bg);padding:14px 28px;font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;box-shadow:0 0 24px rgba(0,245,255,.3)}
+  .btn-primary:hover{opacity:.85;transform:translateY(-2px);box-shadow:0 4px 32px rgba(0,245,255,.5)}
+  .btn-secondary{background:var(--card);border:1px solid var(--neon3);color:var(--neon3);padding:14px 28px;font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s;box-shadow:0 0 16px rgba(123,0,255,.2)}
+  .btn-secondary:hover{background:var(--neon3);color:white;transform:translateY(-2px)}
+  .hero-note{margin-top:32px;font-size:.65rem;color:var(--muted);letter-spacing:2px;line-height:1.8}
+  .hero-note span{color:var(--neon);opacity:.7}
+
+  /* ── SETTINGS PANEL ── */
   .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;backdrop-filter:blur(4px);align-items:center;justify-content:center}
   .settings-overlay.open{display:flex}
   .settings-panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;width:100%;max-width:480px;overflow:hidden;animation:slideUp .25s ease}
@@ -81,28 +73,9 @@
   .cloak-status{display:flex;align-items:center;gap:8px;font-size:.65rem;letter-spacing:1px;color:var(--muted);margin-top:12px}
   .status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
   .status-dot.active{background:#00ff88;box-shadow:0 0 6px #00ff88}
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,5,10,.95);z-index:1000;backdrop-filter:blur(4px);flex-direction:column}
-  .modal-overlay.open{display:flex}
-  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
-  .modal-title{font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:2px;color:var(--neon)}
-  .modal-actions{display:flex;gap:10px;align-items:center}
-  .btn-fullscreen,.btn-close{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 14px;font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;transition:all .2s}
-  .btn-close{border-color:var(--neon2);color:var(--neon2)}
-  .btn-close:hover{background:var(--neon2);color:white}
-  .btn-fullscreen:hover{border-color:var(--neon);color:var(--neon)}
-  .game-frame-wrap{flex:1;position:relative;overflow:hidden}
-  .game-frame-wrap iframe{width:100%;height:100%;border:none;display:block}
-  .loading-screen{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:5;transition:opacity .3s}
-  .loading-screen.hidden{opacity:0;pointer-events:none}
-  .loader-ring{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--neon);border-radius:50%;animation:spin .8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loader-text{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:4px;color:var(--neon);text-transform:uppercase;animation:blink 1s infinite}
-  @keyframes blink{50%{opacity:.3}}
-  .no-results{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
-  .no-results-icon{font-size:3rem;margin-bottom:16px}
-  .no-results-text{font-family:'Orbitron',sans-serif;font-size:.9rem;letter-spacing:2px}
-  footer{position:relative;z-index:5;text-align:center;padding:30px;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:2px}
-  @media(max-width:600px){header{padding:16px 20px}.controls{padding:20px 20px 10px}.games-section{padding:10px 20px 40px}.logo{font-size:1.1rem}.presets-grid{grid-template-columns:repeat(2,1fr)}}
+
+  footer{position:relative;z-index:5;text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:2px}
+  @media(max-width:600px){header{padding:16px 20px}.hero{padding:60px 24px}.header-right{gap:8px}.presets-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -113,35 +86,23 @@
     <div class="tagline">Unblocked Games Portal</div>
   </div>
   <div class="header-right">
-    <button class="settings-btn" onclick="openSettings()">⚙ Cloak Tab</button>
+    <button class="header-btn blank-btn" onclick="openAboutBlank()">⧉ Open in about:blank</button>
+    <button class="header-btn" onclick="openSettings()">⚙ Cloak Tab</button>
     <div class="live-badge"><div class="live-dot"></div>Online</div>
   </div>
 </header>
 
-<div class="controls">
-  <div class="search-wrap">
-    <span class="search-icon">⌕</span>
-    <input type="text" id="searchInput" placeholder="Search games..." autocomplete="off">
+<div class="hero">
+  <div class="hero-frog">🐸</div>
+  <div class="hero-title">FROGGIE<span>ARCADE</span></div>
+  <div class="hero-sub">Unblocked Games Portal</div>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="openAboutBlank()">⧉ Open in about:blank</button>
+    <button class="btn-secondary" onclick="openSettings()">⚙ Cloak Tab</button>
   </div>
-  <div class="filters">
-    <button class="filter-btn active" data-cat="all">All</button>
-    <button class="filter-btn" data-cat="arcade">Arcade</button>
-    <button class="filter-btn" data-cat="puzzle">Puzzle</button>
-    <button class="filter-btn" data-cat="action">Action</button>
-    <button class="filter-btn" data-cat="strategy">Strategy</button>
-    <button class="filter-btn" data-cat="sports">Sports</button>
-  </div>
-</div>
-
-<div class="games-section">
-  <div class="section-header">
-    <div class="section-title">All Games</div>
-    <div class="section-line"></div>
-  </div>
-  <div class="games-grid" id="gamesGrid"></div>
-  <div class="no-results" id="noResults">
-    <div class="no-results-icon">🐸</div>
-    <div class="no-results-text">No games found</div>
+  <div class="hero-note">
+    <span>about:blank</span> hides this URL from the address bar<br>
+    <span>Cloak Tab</span> disguises the tab title &amp; icon
   </div>
 </div>
 
@@ -178,44 +139,7 @@
   </div>
 </div>
 
-<!-- GAME MODAL -->
-<div class="modal-overlay" id="gameModal">
-  <div class="modal-header">
-    <div class="modal-title" id="modalTitle">GAME</div>
-    <div class="modal-actions">
-      <button class="btn-fullscreen" onclick="toggleFullscreen()">⛶ Fullscreen</button>
-      <button class="btn-close" onclick="closeModal()">✕ Close</button>
-    </div>
-  </div>
-  <div class="game-frame-wrap">
-    <div class="loading-screen" id="loadingScreen">
-      <div class="loader-ring"></div>
-      <div class="loader-text">Loading Game...</div>
-    </div>
-    <iframe id="gameFrame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals"></iframe>
-  </div>
-</div>
-
 <script>
-const games = [
-  {id:1,  name:"2048",            category:"puzzle",   emoji:"🔢", bg:"linear-gradient(135deg,#1a1a2e,#16213e)", url:"https://play2048.co/",              hot:true},
-  {id:2,  name:"Wordle Unlimited",category:"puzzle",   emoji:"🟩", bg:"linear-gradient(135deg,#1a2e1a,#0f3d0f)", url:"https://wordleunlimited.org/",       new:true},
-  {id:3,  name:"Slither.io",      category:"action",   emoji:"🐍", bg:"linear-gradient(135deg,#0d1b2a,#1b4332)", url:"https://slither.io/"},
-  {id:4,  name:"Agar.io",         category:"action",   emoji:"🔵", bg:"linear-gradient(135deg,#0a192f,#172554)", url:"https://agar.io/",                   hot:true},
-  {id:5,  name:"Flappy Bird",     category:"arcade",   emoji:"🐦", bg:"linear-gradient(135deg,#1a1a0a,#2d4a00)", url:"https://flappybird.io/"},
-  {id:6,  name:"Tetris",          category:"puzzle",   emoji:"🟦", bg:"linear-gradient(135deg,#0d0d2b,#1a0533)", url:"https://tetris.com/play-tetris"},
-  {id:7,  name:"Minesweeper",     category:"strategy", emoji:"💣", bg:"linear-gradient(135deg,#1a0a0a,#2d1010)", url:"https://minesweeper.online/"},
-  {id:8,  name:"Chess",           category:"strategy", emoji:"♟️", bg:"linear-gradient(135deg,#1a1400,#2d2400)", url:"https://www.chess.com/play/computer"},
-  {id:9,  name:"Pac-Man",         category:"arcade",   emoji:"👾", bg:"linear-gradient(135deg,#1a1700,#2a2400)", url:"https://freepacman.org/",            hot:true},
-  {id:10, name:"Sudoku",          category:"puzzle",   emoji:"🔲", bg:"linear-gradient(135deg,#0a0a1a,#12003d)", url:"https://sudoku.com/"},
-  {id:11, name:"Solitaire",       category:"strategy", emoji:"🃏", bg:"linear-gradient(135deg,#001a0d,#00330d)", url:"https://www.solitr.com/",            new:true},
-  {id:12, name:"Mahjong",         category:"strategy", emoji:"🀄", bg:"linear-gradient(135deg,#1a0000,#330000)", url:"https://mahjong.gg/"},
-  {id:13, name:"Geometry Dash",   category:"arcade",   emoji:"🔷", bg:"linear-gradient(135deg,#00001a,#00003d)", url:"https://geometrydashgame.io/"},
-  {id:14, name:"Crossword",       category:"puzzle",   emoji:"📰", bg:"linear-gradient(135deg,#1a1a1a,#2a2a2a)", url:"https://www.free-crossword.com/"},
-  {id:15, name:"Ping Pong",       category:"sports",   emoji:"🏓", bg:"linear-gradient(135deg,#001a1a,#003333)", url:"https://www.ponggame.org/"},
-  {id:16, name:"Basketball Stars",category:"sports",   emoji:"🏀", bg:"linear-gradient(135deg,#1a0800,#2d1400)", url:"https://www.basketballstars.com/"},
-];
-
 const presets = [
   { name:"Google",      icon:"🔍", favicon:"https://www.google.com/favicon.ico",           title:"Google" },
   { name:"Classroom",   icon:"🎓", favicon:"https://classroom.google.com/favicon.ico",     title:"Google Classroom" },
@@ -228,12 +152,19 @@ const presets = [
   { name:"Duolingo",    icon:"🦜", favicon:"https://www.duolingo.com/favicon.ico",          title:"Duolingo" },
 ];
 
-const DEFAULT_TITLE   = 'FROGGIE ARCADE — Unblocked Games';
-const DEFAULT_FAVICON = '🐸';
-
-let selectedPreset = null;
+const DEFAULT_TITLE = 'FROGGIE ARCADE — Unblocked Games';
 let cloakActive = false;
 
+// ── ABOUT:BLANK ──
+function openAboutBlank() {
+  const w = window.open('about:blank', '_blank');
+  const html = document.documentElement.outerHTML;
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+// ── PRESETS ──
 function renderPresets() {
   document.getElementById('presetsGrid').innerHTML = presets.map((p, i) => `
     <div class="preset-card" id="preset-${i}" onclick="selectPreset(${i})">
@@ -244,13 +175,13 @@ function renderPresets() {
 }
 
 function selectPreset(i) {
-  selectedPreset = i;
   document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('selected'));
   document.getElementById(`preset-${i}`).classList.add('selected');
-  document.getElementById('customTitle').value = presets[i].title;
+  document.getElementById('customTitle').value   = presets[i].title;
   document.getElementById('customFavicon').value = presets[i].favicon;
 }
 
+// ── CLOAK ──
 function applyCloak() {
   const title   = document.getElementById('customTitle').value.trim();
   const favicon = document.getElementById('customFavicon').value.trim();
@@ -258,24 +189,23 @@ function applyCloak() {
   if (title)   document.title = title;
   if (favicon) document.getElementById('favicon').href = favicon;
   cloakActive = true;
-  updateStatus(title || document.title, favicon);
+  updateStatus(title || document.title);
   sessionStorage.setItem('cloak', JSON.stringify({ title, favicon }));
   closeSettings();
 }
 
 function resetCloak() {
   document.title = DEFAULT_TITLE;
-  document.getElementById('favicon').href = 'https://froggie-arcade.com/favicon.ico';
-  document.getElementById('customTitle').value = '';
+  document.getElementById('favicon').href = '';
+  document.getElementById('customTitle').value   = '';
   document.getElementById('customFavicon').value = '';
-  selectedPreset = null;
   document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('selected'));
   cloakActive = false;
-  updateStatus(null, null);
+  updateStatus(null);
   sessionStorage.removeItem('cloak');
 }
 
-function updateStatus(title, favicon) {
+function updateStatus(title) {
   const dot  = document.getElementById('statusDot');
   const text = document.getElementById('statusText');
   if (cloakActive) {
@@ -296,72 +226,17 @@ function restoreCloak() {
   cloakActive = true;
   document.getElementById('customTitle').value   = title   || '';
   document.getElementById('customFavicon').value = favicon || '';
-  updateStatus(title, favicon);
+  updateStatus(title);
 }
 
 function openSettings()  { document.getElementById('settingsOverlay').classList.add('open'); }
 function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
 function overlayClick(e) { if (e.target === document.getElementById('settingsOverlay')) closeSettings(); }
 
-let cat = 'all', q = '';
-
-function render() {
-  const grid = document.getElementById('gamesGrid');
-  const none = document.getElementById('noResults');
-  const f = games.filter(g => (cat === 'all' || g.category === cat) && g.name.toLowerCase().includes(q.toLowerCase()));
-  if (!f.length) { grid.innerHTML = ''; none.style.display = 'block'; return; }
-  none.style.display = 'none';
-  grid.innerHTML = f.map((g, i) => `
-    <div class="game-card" onclick="openGame('${g.url}','${g.name.replace(/'/g,"&#39;")}')" style="animation-delay:${i * .04}s">
-      ${g.hot ? '<div class="hot-badge">Hot</div>' : ''}${g.new ? '<div class="new-badge">New</div>' : ''}
-      <div class="game-thumb" style="background:${g.bg}">
-        <span style="filter:drop-shadow(0 0 12px rgba(255,255,255,0.3));position:relative;z-index:1">${g.emoji}</span>
-      </div>
-      <div class="game-info">
-        <div class="game-name">${g.name}</div>
-        <div class="game-meta">
-          <span class="game-category">${g.category}</span>
-          <span class="game-play-btn">▶ Play</span>
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function openGame(url, name) {
-  document.getElementById('modalTitle').textContent = name.toUpperCase();
-  document.getElementById('gameFrame').src = '';
-  document.getElementById('loadingScreen').classList.remove('hidden');
-  document.getElementById('gameModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => { document.getElementById('gameFrame').src = url; }, 100);
-  document.getElementById('gameFrame').onload = () => { document.getElementById('loadingScreen').classList.add('hidden'); };
-}
-
-function closeModal() {
-  document.getElementById('gameModal').classList.remove('open');
-  document.getElementById('gameFrame').src = '';
-  document.body.style.overflow = '';
-}
-
-function toggleFullscreen() {
-  const w = document.getElementById('gameModal');
-  if (!document.fullscreenElement) w.requestFullscreen().catch(() => {});
-  else document.exitFullscreen();
-}
-
-document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  cat = btn.dataset.cat;
-  render();
-}));
-
-document.getElementById('searchInput').addEventListener('input', e => { q = e.target.value; render(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeSettings(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSettings(); });
 
 renderPresets();
 restoreCloak();
-render();
 </script>
 </body>
 </html>
