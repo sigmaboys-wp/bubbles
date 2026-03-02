@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARCADE ZONE — Unblocked Games</title>
+<link id="favicon" rel="icon" href="https://www.google.com/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#0a0a0f;--surface:#12121a;--card:#1a1a28;--border:#2a2a45;--neon:#00f5ff;--neon2:#ff006e;--neon3:#7b00ff;--text:#e0e0ff;--muted:#6060a0}
@@ -14,9 +15,12 @@
   .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.6rem;letter-spacing:3px;background:linear-gradient(90deg,var(--neon),var(--neon3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .logo span{-webkit-text-fill-color:var(--neon2)}
   .tagline{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+  .header-right{display:flex;align-items:center;gap:16px}
   .live-badge{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--neon);letter-spacing:2px;text-transform:uppercase}
   .live-dot{width:8px;height:8px;background:var(--neon);border-radius:50%;animation:pulse 1.5s infinite;box-shadow:0 0 8px var(--neon)}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+  .settings-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;gap:6px}
+  .settings-btn:hover{border-color:var(--neon3);color:var(--neon3)}
   .controls{position:relative;z-index:5;padding:30px 40px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
   .search-wrap{position:relative;flex:1;min-width:220px;max-width:400px}
   .search-wrap input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 16px 10px 42px;color:var(--text);font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:1px;outline:none;transition:border-color .2s,box-shadow .2s}
@@ -44,6 +48,44 @@
   .game-play-btn{font-size:.65rem;letter-spacing:1px;color:var(--neon);text-transform:uppercase;font-weight:700}
   .hot-badge{position:absolute;top:10px;right:10px;background:var(--neon2);color:white;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;font-weight:700;z-index:2;text-transform:uppercase}
   .new-badge{position:absolute;top:10px;right:10px;background:var(--neon3);color:white;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;font-weight:700;z-index:2;text-transform:uppercase}
+
+  /* ── SETTINGS PANEL ── */
+  .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+  .settings-overlay.open{display:flex}
+  .settings-panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;width:100%;max-width:480px;overflow:hidden;animation:slideUp .25s ease}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .settings-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+  .settings-head-title{font-family:'Orbitron',sans-serif;font-size:.9rem;letter-spacing:3px;color:var(--neon3)}
+  .settings-close{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;transition:color .2s;line-height:1}
+  .settings-close:hover{color:var(--neon2)}
+  .settings-body{padding:24px}
+  .settings-section-label{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--neon3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .settings-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  .presets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+  .preset-card{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:12px 10px;cursor:pointer;transition:all .2s;text-align:center}
+  .preset-card:hover{border-color:var(--neon3);transform:translateY(-2px)}
+  .preset-card.selected{border-color:var(--neon3);box-shadow:0 0 12px rgba(123,0,255,.25);background:#1e1432}
+  .preset-icon{font-size:1.4rem;margin-bottom:6px}
+  .preset-name{font-size:.62rem;letter-spacing:1px;color:var(--text);text-transform:uppercase}
+  .preset-url{font-size:.55rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .divider{text-align:center;font-size:.65rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin:4px 0 16px;position:relative}
+  .divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border)}
+  .divider::before{left:0}.divider::after{right:0}
+  .input-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .input-label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+  .cloak-input{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:10px 14px;color:var(--text);font-family:'Space Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s}
+  .cloak-input:focus{border-color:var(--neon3)}
+  .cloak-input::placeholder{color:var(--muted)}
+  .settings-actions{display:flex;gap:10px;margin-top:20px}
+  .btn-apply{flex:1;background:var(--neon3);border:none;color:white;padding:11px;font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:2px;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:opacity .2s;box-shadow:0 0 16px rgba(123,0,255,.3)}
+  .btn-apply:hover{opacity:.85}
+  .btn-reset{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:11px 18px;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;cursor:pointer;border-radius:4px;text-transform:uppercase;transition:all .2s}
+  .btn-reset:hover{border-color:var(--neon2);color:var(--neon2)}
+  .cloak-status{display:flex;align-items:center;gap:8px;font-size:.65rem;letter-spacing:1px;color:var(--muted);margin-top:12px}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
+  .status-dot.active{background:#00ff88;box-shadow:0 0 6px #00ff88}
+
+  /* ── GAME MODAL ── */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,5,10,.95);z-index:1000;backdrop-filter:blur(4px);flex-direction:column}
   .modal-overlay.open{display:flex}
   .modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
@@ -65,7 +107,7 @@
   .no-results-icon{font-size:3rem;margin-bottom:16px}
   .no-results-text{font-family:'Orbitron',sans-serif;font-size:.9rem;letter-spacing:2px}
   footer{position:relative;z-index:5;text-align:center;padding:30px;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:2px}
-  @media(max-width:600px){header{padding:16px 20px}.controls{padding:20px 20px 10px}.games-section{padding:10px 20px 40px}.logo{font-size:1.1rem}}
+  @media(max-width:600px){header{padding:16px 20px}.controls{padding:20px 20px 10px}.games-section{padding:10px 20px 40px}.logo{font-size:1.1rem}.presets-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -75,7 +117,10 @@
     <div class="logo">ARCADE<span>ZONE</span></div>
     <div class="tagline">Unblocked Games Portal</div>
   </div>
-  <div class="live-badge"><div class="live-dot"></div>Online</div>
+  <div class="header-right">
+    <button class="settings-btn" onclick="openSettings()">⚙ Cloak Tab</button>
+    <div class="live-badge"><div class="live-dot"></div>Online</div>
+  </div>
 </header>
 
 <div class="controls">
@@ -107,6 +152,42 @@
 
 <footer>© 2026 ARCADEZONE — All games run in isolated iframes</footer>
 
+<!-- SETTINGS PANEL -->
+<div class="settings-overlay" id="settingsOverlay" onclick="overlayClick(event)">
+  <div class="settings-panel">
+    <div class="settings-head">
+      <div class="settings-head-title">⚙ Tab Cloaking</div>
+      <button class="settings-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-section-label">Quick Presets</div>
+      <div class="presets-grid" id="presetsGrid"></div>
+
+      <div class="divider">or custom</div>
+
+      <div class="input-row">
+        <div class="input-label">Tab Title</div>
+        <input class="cloak-input" id="customTitle" placeholder="e.g. Google Classroom" autocomplete="off">
+      </div>
+      <div class="input-row">
+        <div class="input-label">Favicon URL</div>
+        <input class="cloak-input" id="customFavicon" placeholder="e.g. https://google.com/favicon.ico" autocomplete="off">
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn-apply" onclick="applyCloak()">Apply Cloak</button>
+        <button class="btn-reset" onclick="resetCloak()">Reset</button>
+      </div>
+
+      <div class="cloak-status">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">No cloak active</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAME MODAL -->
 <div class="modal-overlay" id="gameModal">
   <div class="modal-header">
     <div class="modal-title" id="modalTitle">GAME</div>
@@ -125,6 +206,7 @@
 </div>
 
 <script>
+// ── GAMES DATA ──
 const games = [
   {id:1,  name:"2048",            category:"puzzle",   emoji:"🔢", bg:"linear-gradient(135deg,#1a1a2e,#16213e)", url:"https://play2048.co/",              hot:true},
   {id:2,  name:"Wordle Unlimited",category:"puzzle",   emoji:"🟩", bg:"linear-gradient(135deg,#1a2e1a,#0f3d0f)", url:"https://wordleunlimited.org/",       new:true},
@@ -144,6 +226,100 @@ const games = [
   {id:16, name:"Basketball Stars",category:"sports",   emoji:"🏀", bg:"linear-gradient(135deg,#1a0800,#2d1400)", url:"https://www.basketballstars.com/"},
 ];
 
+// ── CLOAK PRESETS ──
+const presets = [
+  { name:"Google",      icon:"🔍", favicon:"https://www.google.com/favicon.ico",           title:"Google" },
+  { name:"Classroom",   icon:"🎓", favicon:"https://classroom.google.com/favicon.ico",     title:"Google Classroom" },
+  { name:"Docs",        icon:"📄", favicon:"https://docs.google.com/favicon.ico",           title:"Google Docs" },
+  { name:"Slides",      icon:"📊", favicon:"https://ssl.gstatic.com/slides/favicon72.png",  title:"Google Slides" },
+  { name:"Khan Academy",icon:"📚", favicon:"https://www.khanacademy.org/favicon.ico",       title:"Khan Academy" },
+  { name:"Zoom",        icon:"📹", favicon:"https://st1.zoom.us/zoom.ico",                  title:"Zoom Meeting" },
+  { name:"Wikipedia",   icon:"📖", favicon:"https://en.wikipedia.org/favicon.ico",          title:"Wikipedia" },
+  { name:"Canvas",      icon:"🖼️", favicon:"https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico", title:"Canvas LMS" },
+  { name:"Duolingo",    icon:"🦜", favicon:"https://www.duolingo.com/favicon.ico",          title:"Duolingo" },
+];
+
+let selectedPreset = null;
+let cloakActive = false;
+
+// ── RENDER PRESETS ──
+function renderPresets() {
+  document.getElementById('presetsGrid').innerHTML = presets.map((p, i) => `
+    <div class="preset-card" id="preset-${i}" onclick="selectPreset(${i})">
+      <div class="preset-icon">${p.icon}</div>
+      <div class="preset-name">${p.name}</div>
+    </div>
+  `).join('');
+}
+
+function selectPreset(i) {
+  selectedPreset = i;
+  document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`preset-${i}`).classList.add('selected');
+  document.getElementById('customTitle').value = presets[i].title;
+  document.getElementById('customFavicon').value = presets[i].favicon;
+}
+
+// ── APPLY / RESET CLOAK ──
+function applyCloak() {
+  const title   = document.getElementById('customTitle').value.trim();
+  const favicon = document.getElementById('customFavicon').value.trim();
+  if (!title && !favicon) return;
+  if (title)   document.title = title;
+  if (favicon) {
+    const link = document.getElementById('favicon');
+    link.href = favicon;
+  }
+  cloakActive = true;
+  updateStatus(title || document.title, favicon);
+  // Save to sessionStorage so it persists on reload
+  sessionStorage.setItem('cloak', JSON.stringify({ title, favicon }));
+  closeSettings();
+}
+
+function resetCloak() {
+  document.title = 'ARCADE ZONE — Unblocked Games';
+  document.getElementById('favicon').href = 'https://www.google.com/favicon.ico';
+  document.getElementById('customTitle').value = '';
+  document.getElementById('customFavicon').value = '';
+  selectedPreset = null;
+  document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('selected'));
+  cloakActive = false;
+  updateStatus(null, null);
+  sessionStorage.removeItem('cloak');
+}
+
+function updateStatus(title, favicon) {
+  const dot  = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  if (cloakActive) {
+    dot.classList.add('active');
+    text.textContent = `Cloaked as: "${title || '—'}"`;
+  } else {
+    dot.classList.remove('active');
+    text.textContent = 'No cloak active';
+  }
+}
+
+// ── RESTORE CLOAK ON LOAD ──
+function restoreCloak() {
+  const saved = sessionStorage.getItem('cloak');
+  if (!saved) return;
+  const { title, favicon } = JSON.parse(saved);
+  if (title)   document.title = title;
+  if (favicon) document.getElementById('favicon').href = favicon;
+  cloakActive = true;
+  document.getElementById('customTitle').value   = title   || '';
+  document.getElementById('customFavicon').value = favicon || '';
+  updateStatus(title, favicon);
+}
+
+// ── SETTINGS PANEL ──
+function openSettings()  { document.getElementById('settingsOverlay').classList.add('open'); }
+function closeSettings() { document.getElementById('settingsOverlay').classList.remove('open'); }
+function overlayClick(e) { if (e.target === document.getElementById('settingsOverlay')) closeSettings(); }
+
+// ── GAMES ──
 let cat = 'all', q = '';
 
 function render() {
@@ -198,8 +374,10 @@ document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('cl
 }));
 
 document.getElementById('searchInput').addEventListener('input', e => { q = e.target.value; render(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeSettings(); } });
 
+renderPresets();
+restoreCloak();
 render();
 </script>
 </body>
